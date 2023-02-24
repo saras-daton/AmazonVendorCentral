@@ -59,7 +59,7 @@ from
                     purchaseorderstatus,
                     date(purchaseorderdate),
                     buyerproductidentifier
-                order by {{ daton_batch_runtime() }} desc
+                order by _daton_batch_runtime desc
             ) row_num
         from
             (

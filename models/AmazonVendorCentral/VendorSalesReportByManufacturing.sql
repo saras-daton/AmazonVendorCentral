@@ -56,7 +56,7 @@ from
         select
             *,
             row_number() over (
-                partition by startdate, asin order by {{ daton_batch_runtime() }} desc
+                partition by startdate, asin order by _daton_batch_runtime desc
             ) row_num
         from
             (
