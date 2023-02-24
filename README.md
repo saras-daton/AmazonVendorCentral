@@ -118,7 +118,7 @@ This package contains models from the Amazon Vendor Central API which includes r
 
 
 
-### For details about default configurations for Table Primary Key columns, Partition columns, Clustering columns, please refer the properties.yaml used for this package as below. 
+## For details about default configurations for Table Primary Key columns, Partition columns, Clustering columns, please refer the properties.yaml used for this package as below. 
 	You can overwrite these default configurations by using your project specific properties yaml.
 ```yaml
 version: 2
