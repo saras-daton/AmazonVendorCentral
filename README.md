@@ -106,7 +106,7 @@ This package contains models from the Amazon Vendor Central API which includes r
 
 | **Category**                 | **Model**  | **Description** |
 | ------------------------- | ---------------| ----------------------- |
-|Margin | [NetPureProductMarginReport](models/AmazonVendorCentral/NetPureProductMarginReport.sql)  | A list of portfolios associated with the account |
+|Margin | [NetPureProductMarginReport](models/AmazonVendorCentral/NetPureProductMarginReport.sql)  | Amazon’s Vendor Central Net PPM (Pure Profit Margin) Report provides valuable ASIN-level vendor profit data. Net PPM stands for Net Pure Profit Margin and represents Amazon’s retail profit margin. Net PPM is a critical metric to track on an ongoing basis as it has major implications to product sales velocity. |
 |Purchase Order | [RetailProcurementOrdersStatus](models/AmazonVendorCentral/RetailProcurementOrdersStatus.sql)  | A list of campaigns associated with the account |
 |Inventory | [VendorInventoryReportByManufacturing](models/AmazonVendorCentral/VendorInventoryReportByManufacturing.sql)  | A list of ad groups associated with the account |
 |Inventory | [VendorInventoryReportBySourcing](models/AmazonVendorCentral/VendorInventoryReportBySourcing.sql)| A list of ad groups related to sponsored brand video associated with the account |
