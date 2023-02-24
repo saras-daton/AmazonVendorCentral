@@ -7,12 +7,11 @@ This dbt package is for Data Unification of Amazon Vendor Central ingested data 
 - Snowflake
 
 #### Typical challenges with raw data are:
-- Array/Nested Array columns which makes queries for Data Analytics complex
+- Array/Nested Array columns makes queries for Data Analytics complex
 - Data duplication due to look back period while fetching report data from Amazon
 - Separate tables at marketplaces/Store, brand, account level for same kind of report/data feeds
 
-By doing Data Unification the above challenges can be overcomed and simplifies Data Analytics. 
-As part of Data Unification, the following functions are performed:
+Data Unification simplifies Data Analytics by doing:
 - Consolidation - Different marketplaces/Store/account & different brands would have similar raw Daton Ingested tables, which are consolidated into one table with column distinguishers brand & store
 - Deduplication - Based on primary keys, the data is De-duplicated and the latest records are only loaded into the consolidated stage tables
 - Incremental Load - Models are designed to include incremental load which when scheduled would update the tables regularly
@@ -116,6 +115,7 @@ This package contains models from the Amazon Vendor Central API which includes r
 |Sales | [VendorSalesReportByManufacturing](models/AmazonVendorCentral/VendorSalesReportByManufacturing.sql)| The Sales View shows vital stats like shipped revenue, shipped COGS (cost of goods sold), and ordered revenue by Manufacturing |
 |Sales | [VendorSalesReportBySourcing](models/AmazonVendorCentral/VendorSalesReportBySourcing.sql)| The Sales View shows vital stats like shipped revenue, shipped COGS (cost of goods sold), and ordered revenue By Sourcing |
 |Traffic | [VendorSalesReportBySourcing](models/AmazonVendorCentral/VendorSalesReportBySourcing.sql)| Traffic details of different products |
+
 
 
 ### For details about default configurations for Table Primary Key columns, Partition columns, Clustering columns, please refer the properties.yaml used for this package as below. 
