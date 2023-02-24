@@ -70,6 +70,6 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 
 models:
-  amazon_ads:
-    AmazonAds:
+  amazon_vendorcentral:
+    AmazonVendorCentral:
       +schema: stg_amazon_dbthub

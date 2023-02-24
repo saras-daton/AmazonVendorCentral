@@ -59,6 +59,7 @@ from
         from
             (
                 select
+                    a.* {{ exclude() }} (_daton_user_id, _daton_batch_runtime, _daton_batch_id, _last_updated, _run_id),
                     {% if var("currency_conversion_flag") %}
                     case
                         when c.value is null then 1 else c.value
@@ -72,7 +73,7 @@ from
                     cast(1 as decimal) as exchange_currency_rate,
                     cast(a.currencycode as string) as exchange_currency_code,
                     {% endif %}
-                    a.*
+                    a._daton_user_id, a._daton_batch_runtime, a._daton_batch_id, a._last_updated, a._run_id
                 from
                     (
                         select
