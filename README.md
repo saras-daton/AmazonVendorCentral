@@ -25,7 +25,7 @@ As part of Data Unification, the following functions are performed:
 Daton Integrations for  
 - Amazon Vendor Central
 - Exchange Rates(Optional, if currency conversion is not required)
-* Note: Please select 'Do Not Unnest' option while setting up Daton Integrataion *
+_ Note: Please select 'Do Not Unnest' option while setting up Daton Integrataion _
 
 # Installation & Configuration
 
