@@ -23,7 +23,7 @@ As part of Data Unification, the following functions are performed:
 
 #### Prerequisite 
 Daton Integrations for  
-- Amazon Ads: Sponsored Brands, Sponsored Display, Sponsored Products 
+- Amazon Vendor Central
 - Exchange Rates(Optional, if currency conversion is not required)
 
 # Installation & Configuration
@@ -34,7 +34,7 @@ If you haven't already, you will need to create a packages.yml file in your DBT 
 
 ```yaml
 packages:
-  - package: saras-daton/amazon_ads
+  - package: saras-daton/amazon_vendorcentral
     version: {{1.0.0}}
 ```
 
@@ -55,8 +55,8 @@ Models will be create unified tables under the schema (<target_schema>_stg_amazo
 
 ```yaml
 models:
-  amazon_ads:
-    AmazonAds:
+  amazon_vendorcentral:
+    AmazonVendorCentral:
       +schema: custom_schema_name
 
 ```
