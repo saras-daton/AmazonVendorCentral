@@ -37,7 +37,7 @@ If you haven't already, you will need to create a packages.yml file in your DBT 
 ```yaml
 packages:
   - package: saras-daton/amazon_vendorcentral
-    version: {{1.0.0}}
+    version: v1.0.0
 ```
 
 # Configuration 
@@ -59,7 +59,7 @@ Models will be create unified tables under the schema (<target_schema>_stg_amazo
 models:
   amazon_vendorcentral:
     AmazonVendorCentral:
-      +schema: custom_schema_name
+      +schema: custom_schema_extension
 
 ```
 
@@ -88,7 +88,7 @@ Example:
 vars:
 timezone_conversion_flag: False
 raw_table_timezone_offset_hours: {
-    "saras_db.staging.Brand_US_AmazonVendorCentral_RetailProcurementOrdersStatus":7
+    "Amazon.VendorCentral.Brand_UK_AmazonVendorCentral_RetailProcurementOrdersStatus":-7
     }
 ```
 
@@ -190,6 +190,6 @@ models:
 
 
 ## Resources:
-- Have questions, feedback, or need [help](https://calendly.com/priyanka-vankadaru/30min)? Schedule a call with our data experts or email us at info@sarasanalytics.com.
+- Have questions, feedback, or need [help](https://calendly.com/srinivas-janipalli/30min)? Schedule a call with our data experts or email us at info@sarasanalytics.com.
 - Learn more about Daton [here](https://sarasanalytics.com/daton/).
 - Refer [this](https://youtu.be/6zDTbM6OUcs) to know more about how to create a dbt account & connect to {{Bigquery/Snowflake}}
