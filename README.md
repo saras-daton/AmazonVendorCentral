@@ -37,7 +37,7 @@ If you haven't already, you will need to create a packages.yml file in your DBT 
 ```yaml
 packages:
   - package: saras-daton/amazon_vendorcentral
-    version: v1.0.1
+    version: v1.1.0
 ```
 
 # Configuration 
@@ -80,8 +80,7 @@ vars:
 
 ### Timezone Conversion 
 
-To enable timezone conversion, which converts the datetime columns from local timezone to given timezone, please mark the timezone_conversion_flag f as True in the dbt_project.yml file, by default, it is False
-Additionally, you need to provide offset hours for each raw table
+To enable timezone conversion, which converts the timezone columns from UTC timezone to local timezone, please mark the timezone_conversion_flag as True in the dbt_project.yml file, by default, it is False. Additionally, you need to provide offset hours between UTC and the timezone you want the data to convert into for each raw table for which you want timezone converison to be taken into account.
 
 Example:
 ```yaml
@@ -91,6 +90,7 @@ raw_table_timezone_offset_hours: {
     "Amazon.VendorCentral.Brand_UK_AmazonVendorCentral_RetailProcurementOrdersStatus":-7
     }
 ```
+Here, -7 represents the offset hours between UTC and PDT considering we are sitting in PDT timezone and want the data in this timezone
 
 ### Table Exclusions
 
