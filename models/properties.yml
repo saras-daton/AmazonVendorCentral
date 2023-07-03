@@ -19,6 +19,21 @@ models:
           - dbt_expectations.expect_row_values_to_have_recent_data:
               datepart: day
               interval: 1
+          - not_null:
+              config:
+                severity: error
+
+      - name: asin
+        tests:  
+          - not_null:
+              config:
+                severity: error
+
+
+      - name: brand
+        tests:
+          - accepted_values:
+              values: ['Default']
 
   - name: RetailProcurementOrdersStatus
     description: RetailProcurementOrdersStatus
@@ -41,6 +56,33 @@ models:
           - dbt_expectations.expect_row_values_to_have_recent_data:
               datepart: day
               interval: 1
+          - not_null:
+              config:
+                severity: error
+
+      - name: purchaseOrderNumber
+        tests:  
+          - not_null:
+              config:
+                severity: error
+
+      - name: purchaseOrderStatus
+        tests:  
+          - not_null:
+              config:
+                severity: error
+
+      - name: buyerProductIdentifier
+        tests:  
+          - not_null:
+              config:
+                severity: error
+
+
+      - name: brand
+        tests:
+          - accepted_values:
+              values: ['Default']
 
   - name: VendorInventoryReportByManufacturing
     description: VendorInventoryReportByManufacturing
@@ -62,6 +104,27 @@ models:
           - dbt_expectations.expect_row_values_to_have_recent_data:
               datepart: day
               interval: 1
+          - not_null:
+              config:
+                severity: error
+
+      - name: marketplaceId
+        tests:  
+          - not_null:
+              config:
+                severity: error
+
+      - name: asin
+        tests:  
+          - not_null:
+              config:
+                severity: error
+
+
+      - name: brand
+        tests:
+          - accepted_values:
+              values: ['Default']
 
   - name: VendorInventoryReportBySourcing
     description: VendorInventoryReportBySourcing
@@ -83,6 +146,27 @@ models:
           - dbt_expectations.expect_row_values_to_have_recent_data:
               datepart: day
               interval: 1
+          - not_null:
+              config:
+                severity: error
+
+      - name: marketplaceId
+        tests:  
+          - not_null:
+              config:
+                severity: error
+
+      - name: asin
+        tests:  
+          - not_null:
+              config:
+                severity: error
+
+
+      - name: brand
+        tests:
+          - accepted_values:
+              values: ['Default']
 
   - name: VendorSalesReportByManufacturing
     description: VendorSalesReportByManufacturing
@@ -104,6 +188,27 @@ models:
           - dbt_expectations.expect_row_values_to_have_recent_data:
               datepart: day
               interval: 1
+          - not_null:
+              config:
+                severity: error
+
+      - name: marketplaceId
+        tests:  
+          - not_null:
+              config:
+                severity: error
+
+      - name: asin
+        tests:  
+          - not_null:
+              config:
+                severity: error
+
+
+      - name: brand
+        tests:
+          - accepted_values:
+              values: ['Default']
 
   - name: VendorSalesReportBySourcing
     description: VendorSalesReportBySourcing
@@ -125,6 +230,27 @@ models:
           - dbt_expectations.expect_row_values_to_have_recent_data:
               datepart: day
               interval: 1
+          - not_null:
+              config:
+                severity: error
+
+      - name: marketplaceId
+        tests:  
+          - not_null:
+              config:
+                severity: error
+
+      - name: asin
+        tests:  
+          - not_null:
+              config:
+                severity: error
+
+
+      - name: brand
+        tests:
+          - accepted_values:
+              values: ['Default']
 
   - name: VendorTrafficReport
     description: VendorTrafficReport
@@ -145,3 +271,18 @@ models:
           - dbt_expectations.expect_row_values_to_have_recent_data:
               datepart: day
               interval: 1
+          - not_null:
+              config:
+                severity: error
+
+      - name: asin
+        tests:  
+          - not_null:
+              config:
+                severity: error
+
+
+      - name: brand
+        tests:
+          - accepted_values:
+              values: ['Default']
