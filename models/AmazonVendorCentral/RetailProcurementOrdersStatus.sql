@@ -56,7 +56,6 @@ from
             dense_rank() over (
                 partition by
                     purchaseordernumber,
-                    purchaseorderstatus,
                     date(purchaseorderdate),
                     buyerproductidentifier
                 order by _daton_batch_runtime desc
@@ -111,7 +110,19 @@ from
                                 }}
                                 as {{ dbt.type_timestamp() }}
                             ) as lastupdateddate,
-                            sellingparty,
+                            {% if target.type == "snowflake" %}
+                            sellingParty.value:partyId::varchar
+                            as sellingParty_id,
+                            sellingParty.value:address
+                            as sellingParty_address,
+                            sellingParty.value:taxInfo
+                            as sellingParty_taxInfo,
+                            shiptoparty,
+                            {% else %}
+                            sellingParty.partyId as sellingParty_id,
+                            sellingParty.address as sellingParty_address,
+                            sellingParty.taxInfo as sellingParty_taxInfo,
+                            {% endif %}
                             shiptoparty,
                             {% if target.type == "snowflake" %}
                             itemstatus.value:itemsequencenumber::int
@@ -171,6 +182,7 @@ from
                         from
                             {{ i }}
                             {{ unnesting("itemstatus") }}
+                            {{ unnesting("sellingParty") }}
                             {{ multi_unnesting("itemstatus", "netcost") }}
                             {{ multi_unnesting("itemstatus", "listprice") }}
                             {{ multi_unnesting("itemstatus", "orderedquantity") }}
