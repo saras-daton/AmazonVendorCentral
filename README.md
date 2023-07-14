@@ -105,6 +105,83 @@ This package contains models from the Amazon Vendor Central API which includes r
 |Traffic | [VendorSalesReportBySourcing](models/AmazonVendorCentral/VendorSalesReportBySourcing.sql)| Traffic details of different products |
 
 
+## DBT Tests
+
+The tests property defines assertions about a column, table, or view. The property contains a list of generic tests, referenced by name, which can include the four built-in generic tests available in dbt. For example, you can add tests that ensure a column contains no duplicates and zero null values. Any arguments or configurations passed to those tests should be nested below the test name.
+
+| **Tests**  | **Description** |
+| ---------------| ------------------------------------------- |
+| [Not Null Test](https://docs.getdbt.com/reference/resource-properties/tests#testing-an-expression)  | This test validates that there are no null values present in a column |
+| [Data Recency Test](https://github.com/dbt-labs/dbt-utils/blob/main/macros/generic_tests/recency.sql)  | This is used to check for issues with data refresh within {{ x }} days, please specify the value of number of days at {{ x }} |
+| [Accepted Value Test](https://docs.getdbt.com/reference/resource-properties/tests#accepted_values)  | This test validates that all of the values in a column are present in a supplied list of values. If any values other than those provided in the list are present, then the test will fail, by default it consists of default values and this needs to be changed based on the project |
+| [Uniqueness Test](https://docs.getdbt.com/reference/resource-properties/tests#testing-an-expression)  | This test validates that there are no duplicate values present in a field |
+
+### Table Name: NetPureProductMarginReport
+
+| **Columns**  | **Not Null Test** | **Data Recency Test** | **Accepted Value Test** | **Uniqueness Test** |
+| :--------------- | :--------------- | :--------------- | :--------------- | :--------------- |
+| startDate | Yes | Yes |  | Yes |
+| asin | Yes |  |  | Yes |
+| brand |  |  | Yes |  |
+
+
+### Table Name: RetailProcurementOrdersStatus
+
+| **Columns**  | **Not Null Test** | **Data Recency Test** | **Accepted Value Test** | **Uniqueness Test** |
+| :--------------- | :--------------- | :--------------- | :--------------- | :--------------- |
+| purchaseOrderDate | Yes | Yes |  | Yes |
+| purchaseOrderNumber | Yes |  |  | Yes |
+| purchaseOrderStatus | Yes |  |  | Yes |
+| buyerProductIdentifier | Yes |  |  | Yes |
+| brand |  |  | Yes |  |
+
+
+### Table Name: VendorInventoryReportByManufacturing
+
+| **Columns**  | **Not Null Test** | **Data Recency Test** | **Accepted Value Test** | **Uniqueness Test** |
+| :--------------- | :--------------- | :--------------- | :--------------- | :--------------- |
+| startDate | Yes | Yes |  | Yes |
+| marketplaceId | Yes |  |  | Yes |
+| asin | Yes |  |  | Yes |
+| brand |  |  | Yes |  |
+
+### Table Name: VendorInventoryReportBySourcing
+
+| **Columns**  | **Not Null Test** | **Data Recency Test** | **Accepted Value Test** | **Uniqueness Test** |
+| :--------------- | :--------------- | :--------------- | :--------------- | :--------------- |
+| startDate | Yes | Yes |  | Yes |
+| marketplaceId | Yes |  |  | Yes |
+| asin | Yes |  |  | Yes |
+| brand |  |  | Yes |  |
+
+### Table Name: VendorSalesReportByManufacturing
+
+| **Columns**  | **Not Null Test** | **Data Recency Test** | **Accepted Value Test** | **Uniqueness Test** |
+| :--------------- | :--------------- | :--------------- | :--------------- | :--------------- |
+| startDate | Yes | Yes |  | Yes |
+| marketplaceId | Yes |  |  | Yes |
+| asin | Yes |  |  | Yes |
+| brand |  |  | Yes |  |  
+
+### Table Name: VendorSalesReportBySourcing
+
+| **Columns**  | **Not Null Test** | **Data Recency Test** | **Accepted Value Test** | **Uniqueness Test** |
+| :--------------- | :--------------- | :--------------- | :--------------- | :--------------- |
+| startDate | Yes | Yes |  | Yes |
+| marketplaceId | Yes |  |  | Yes |
+| asin | Yes |  |  | Yes |
+| brand |  |  | Yes |  | 
+
+### Table Name: VendorTrafficReport
+
+| **Columns**  | **Not Null Test** | **Data Recency Test** | **Accepted Value Test** | **Uniqueness Test** |
+| :--------------- | :--------------- | :--------------- | :--------------- | :--------------- |
+| startDate | Yes | Yes |  | Yes |
+| asin | Yes |  |  | Yes |
+| brand |  |  | Yes |  |
+
+
+
 
 ### For details about default configurations for Table Primary Key columns, Partition columns, Clustering columns, please refer the properties.yaml used for this package as below. 
 	You can overwrite these default configurations by using your project specific properties yaml.
