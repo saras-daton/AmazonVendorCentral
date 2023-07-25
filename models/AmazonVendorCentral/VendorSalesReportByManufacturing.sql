@@ -79,7 +79,7 @@ from
                 from
                     (
                         select
-                            '{{id}}' as brand,
+                            '{{brand}}' as brand,
                             '{{store}}' as store,
                             reportrequesttime,
                             vendorid,
