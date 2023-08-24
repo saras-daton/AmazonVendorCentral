@@ -75,10 +75,10 @@ select coalesce(max(_daton_batch_runtime) - 2592000000,0) from {{ this }}
     select a.* {{ exclude() }} (_daton_user_id, _daton_batch_runtime, _daton_batch_id, _last_updated, _run_id),
     {% if var("currency_conversion_flag") %}
         case when c.value is null then 1 else c.value end as exchange_currency_rate,
-        case when c.from_currency_code is null then a.currencycode else c.from_currency_code end as exchange_currency_code,
+        case when c.from_currency_code is null then a.netcost_currencycode else c.from_currency_code end as exchange_currency_code,
     {% else %}
         cast(1 as decimal) as exchange_currency_rate,
-        cast(a.currencycode as string) as exchange_currency_code,
+        cast(a.netcost_currencycode as string) as exchange_currency_code,
     {% endif %}
     a._daton_user_id,
     a._daton_batch_runtime,
@@ -147,7 +147,7 @@ select coalesce(max(_daton_batch_runtime) - 2592000000,0) from {{ this }}
             {% endif %}
             ) a
             {% if var("currency_conversion_flag") %}
-                left join {{ ref("ExchangeRates") }} c on date(a.purchaseorderdate) = c.date and a.currencycode = c.to_currency_code
+                left join {{ ref("ExchangeRates") }} c on date(a.purchaseorderdate) = c.date and a.netcost_currencycode = c.to_currency_code
             {% endif %}
             qualify dense_rank() over (partition by a.purchaseordernumber, date(a.purchaseorderdate), a.itemstatus_buyerproductidentifier order by _daton_batch_runtime desc) = 1
 

@@ -76,10 +76,10 @@ select coalesce(max(_daton_batch_runtime) - 2592000000,0) from {{ this }}
     select a.* {{ exclude() }} (_daton_user_id, _daton_batch_runtime, _daton_batch_id, _last_updated, _run_id),
     {% if var("currency_conversion_flag") %}
         case when c.value is null then 1 else c.value end as exchange_currency_rate,
-        case when c.from_currency_code is null then a.currencycode else c.from_currency_code end as exchange_currency_code,
+        case when c.from_currency_code is null then a.netreceivedinventorycost_currencycode else c.from_currency_code end as exchange_currency_code,
     {% else %}
         cast(1 as decimal) as exchange_currency_rate,
-        cast(a.currencycode as string) as exchange_currency_code,
+        cast(a.netreceivedinventorycost_currencycode as string) as exchange_currency_code,
     {% endif %}
     a._daton_user_id,
     a._daton_batch_runtime,
@@ -118,7 +118,7 @@ select coalesce(max(_daton_batch_runtime) - 2592000000,0) from {{ this }}
         {{ daton_batch_id() }} as _daton_batch_id,
         current_timestamp() as _last_updated,
         '{{env_var("DBT_CLOUD_RUN_ID", "manual")}}' as _run_id
-        from{{i}}
+        from {{i}}
         {{ unnesting("netreceivedinventorycost") }}
         {{ unnesting("sellableonhandinventorycost") }}
         {{ unnesting("unsellableonhandinventorycost") }}
@@ -130,7 +130,7 @@ select coalesce(max(_daton_batch_runtime) - 2592000000,0) from {{ this }}
         {% endif %}
         ) a
         {% if var("currency_conversion_flag") %}
-            left join {{ ref("ExchangeRates") }} c on date(a.startdate) = c.date and a.currencycode = c.to_currency_code
+            left join {{ ref("ExchangeRates") }} c on date(a.startdate) = c.date and a.netreceivedinventorycost_currencycode = c.to_currency_code
         {% endif %}
         qualify row_number() over (partition by startdate, asin order by _daton_batch_runtime desc) = 1
 

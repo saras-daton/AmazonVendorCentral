@@ -82,7 +82,7 @@ select coalesce(max(_daton_batch_runtime) - 2592000000,0) from {{ this }}
     {{daton_batch_id()}} as _daton_batch_id,
     current_timestamp() as _last_updated,
     '{{env_var("DBT_CLOUD_RUN_ID", "manual")}}' as _run_id
-    from {{ i }}
+    from {{i}}
         {% if is_incremental() %}
         {# /* -- this filter will only be applied on an incremental run */ #}
         where {{ daton_batch_runtime() }} >= {{ max_loaded }}
