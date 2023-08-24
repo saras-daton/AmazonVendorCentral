@@ -99,8 +99,6 @@ select coalesce(max(_daton_batch_runtime) - 2592000000,0) from {{ this }}
         cast({{dbt.dateadd(datepart="hour", interval=hr, from_date_or_timestamp="cast(purchaseOrderDate as timestamp)")}} as {{ dbt.type_timestamp() }}) as purchaseorderdate,
         cast({{dbt.dateadd(datepart="hour", interval=hr, from_date_or_timestamp="cast(lastUpdatedDate as timestamp)")}} as {{ dbt.type_timestamp() }}) as lastupdateddate,
         {{extract_nested_value("sellingParty","partyId","string")}} as sellingParty_partyId,
-        {{extract_nested_value("sellingParty","address","string")}} as sellingParty_address,
-        {{extract_nested_value("sellingParty","taxInfo","string")}} as sellingParty_taxInfo,
         shiptoparty,
         {{extract_nested_value("itemstatus","itemsequencenumber","integer")}} as itemstatus_itemsequencenumber,
         {{extract_nested_value("itemstatus","buyerproductidentifier","string")}} as itemstatus_buyerproductidentifier,
