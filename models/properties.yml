@@ -16,7 +16,7 @@ models:
         incremental_strategy: 'merge'
         partition_by: {'field': 'purchaseOrderDate', 'data_type': 'timestamp', 'granularity': 'day'}
         cluster_by: ['purchaseOrderNumber']
-        unique_key: ['purchaseOrderDate','purchaseOrderNumber','purchaseOrderStatus','buyerProductIdentifier']
+        unique_key: ['purchaseOrderDate','purchaseOrderNumber','purchaseOrderStatus','itemstatus_buyerproductidentifier']
 
   - name: VendorInventoryReportByManufacturing
     description: VendorInventoryReportByManufacturing
