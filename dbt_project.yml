@@ -60,4 +60,4 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   AmazonVendorCentral:
     AmazonVendorCentral:
-      +schema: stg_amazon
+      +schema: stg_amazonVC_agencies
