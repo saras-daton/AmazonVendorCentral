@@ -132,7 +132,7 @@ select coalesce(max(_daton_batch_runtime) - 2592000000,0) from {{ this }}
         {% if var("currency_conversion_flag") %}
             left join {{ ref("ExchangeRates") }} c on date(a.startdate) = c.date and a.netreceivedinventorycost_currencycode = c.to_currency_code
         {% endif %}
-        qualify row_number() over (partition by startdate, asin order by _daton_batch_runtime desc) = 1
+        qualify row_number() over (partition by startdate, asin order by a._daton_batch_runtime desc) = 1
 
     {% endset %}
 

@@ -147,7 +147,7 @@ select coalesce(max(_daton_batch_runtime) - 2592000000,0) from {{ this }}
             {% if var("currency_conversion_flag") %}
                 left join {{ ref("ExchangeRates") }} c on date(a.purchaseorderdate) = c.date and a.netcost_currencycode = c.to_currency_code
             {% endif %}
-            qualify dense_rank() over (partition by a.purchaseordernumber, date(a.purchaseorderdate), a.itemstatus_buyerproductidentifier order by _daton_batch_runtime desc) = 1
+            qualify dense_rank() over (partition by a.purchaseordernumber, date(a.purchaseorderdate), a.itemstatus_buyerproductidentifier order by a._daton_batch_runtime desc) = 1
 
     {% endset %}
 
