@@ -1,10 +1,12 @@
 # Amazon Vendor Central Data Unification
 
-This dbt package is for Data Unification of Amazon Vendor Central ingested data by [Daton](https://sarasanalytics.com/daton/). [Daton](https://sarasanalytics.com/daton/) is the Unified Data Platform for Global Commerce with 100+ pre-built connectors and data sets designed for accelerating the eCommerce data and analytics journey by [Saras Analytics](https://sarasanalytics.com).
+## What is the purpose of this dbt package?
+This dbt package is for Data Unification of Amazon Vendor Central ingested data by Daton. Daton is the Unified Data Platform for Global Commerce with 100+ pre-built connectors and data sets designed for accelerating the eCommerce data and analytics journey by [Saras Analytics](https://sarasanalytics.com).
 
-### Supported Datawarehouses:
-- BigQuery
-- Snowflake
+## How do I use Amazon Vendor Central dbt package?
+### Supported Data Warehouses:
+- [BigQuery](https://sarasanalytics.com/blog/what-is-google-bigquery/)
+- [Snowflake](https://sarasanalytics.com/daton/snowflake/)
 
 #### Typical challenges with raw data are:
 - Array/Nested Array columns makes queries for Data Analytics complex
@@ -20,9 +22,9 @@ Data Unification simplifies Data Analytics by doing:
 	  Prerequisite - Exchange Rates connector in Daton needs to be present - Refer [this](https://github.com/saras-daton/currency_exchange_rates)
 	- Time Zone Conversion (Optional) - Raw Tables data created at Marketplace/Store/Account level may have data in local timezone of the corresponding marketplace/store/account. DateTime values that are in local timezone are Standardized by converting to specified timezone using input offset hours.
 
-#### Prerequisite 
+#### Prerequisites for Amazon Vendor Central dbt package 
 Daton Integrations for  
-- Amazon Vendor Central
+- [Amazon Vendor Central](https://sarasanalytics.com/daton/amazon-vendor-central/)
 - Exchange Rates(Optional, if currency conversion is not required)
 
 *Note:* 
@@ -95,7 +97,7 @@ VendorInventoryReportByManufacturing: False
 This package contains models from the Amazon Vendor Central API which includes reports on {{sales, margin, inventory, product}}. The primary outputs of this package are described below.
 
 | **Category**                 | **Model**  | **Description** |
-| ------------------------- | ---------------| ----------------------- |
+| :-------------------------: | :---------------:| :-----------------------:|
 |Margin | [NetPureProductMarginReport](models/AmazonVendorCentral/NetPureProductMarginReport.sql)  | Amazon Vendor Central Net PPM (Pure Profit Margin) Report provides valuable ASIN-level vendor profit data. Net PPM stands for Net Pure Profit Margin and represents Amazon’s retail profit margin. Net PPM is a critical metric to track on an ongoing basis as it has major implications to product sales velocity. |
 |Purchase Order | [RetailProcurementOrdersStatus](models/AmazonVendorCentral/RetailProcurementOrdersStatus.sql)  | A list of orders created or changed during a time period |
 |Inventory | [VendorInventoryReportByManufacturing](models/AmazonVendorCentral/VendorInventoryReportByManufacturing.sql)  | The amount of inventory that is sitting in Amazon's warehouses (or at least in their possession). If you're a manufacturer, you can see how much total inventory is flowing into Amazon. This report will show you metrics like what's on open purchase order, what's sellable vs. unsellable, and how old inventory is |
@@ -177,7 +179,7 @@ models:
 
 
 
-## Resources:
-- Have questions, feedback, or need [help](https://calendly.com/srinivas-janipalli/30min)? Schedule a call with our data experts or email us at info@sarasanalytics.com.
+## What Amazon Vendor Central dbt resources are available?
+- Have questions, feedback, or need [help](https://calendly.com/srinivas-janipalli/30min)? Schedule a call with our data experts or [contact us](https://sarasanalytics.com/contact).
 - Learn more about Daton [here](https://sarasanalytics.com/daton/).
 - Refer [this](https://youtu.be/6zDTbM6OUcs) to know more about how to create a dbt account & connect to {{Bigquery/Snowflake}}
