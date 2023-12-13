@@ -11,10 +11,20 @@
 {# /*--iterating through all the tables */ #}
 
 {% for i in result %}
+
+     select 
+            c.* {{exclude()}} (_daton_user_id, _daton_batch_runtime, _daton_batch_id),        
+            {{ currency_conversion('b.value','b.from_currency_code','c.itemStatus_netCost_currencyCode') }},
+            c._daton_user_id,
+            c._daton_batch_runtime,
+            c._daton_batch_id
+
+    from 
+    (
     
         select
-            "{{ extract_brand_and_store_name_from_table(i, var('brandname_position_in_tablename'), var('get_brandname_from_tablename_flag'), var('default_brandname')) }}" as brand,
-            "{{ extract_brand_and_store_name_from_table(i, var('storename_position_in_tablename'), var('get_storename_from_tablename_flag'), var('default_storename')) }}" as store,
+            '{{ extract_brand_and_store_name_from_table(i, var('brandname_position_in_tablename'), var('get_brandname_from_tablename_flag'), var('default_brandname')) }}' as brand,
+            '{{ extract_brand_and_store_name_from_table(i, var('storename_position_in_tablename'), var('get_storename_from_tablename_flag'), var('default_storename')) }}' as store,
             {{timezone_conversion('requeststartdate')}} as requeststartdate,
             {{timezone_conversion('requestenddate')}} as requestenddate,
             marketplacename,
@@ -88,7 +98,7 @@
             {{extract_nested_value("itemStatus_receivingStatus_receivedQuantity","unitOfMeasure","string")}} as itemStatus_receivingStatus_receivedQuantity_unitOfMeasure,
             {{extract_nested_value("itemStatus_receivingStatus_receivedQuantity","unitSize","integer")}} as itemStatus_receivingStatus_receivedQuantity_unitSize,
             {{extract_nested_value("itemStatus_receivingStatus","lastReceiveDate","timestamp")}} as itemStatus_receivingStatus_lastReceiveDate,
-            {{ currency_conversion('b.value','b.from_currency_code','itemStatus_netCost.currencyCode') }},
+            
             a.{{ daton_user_id() }} as _daton_user_id,
             a.{{ daton_batch_runtime() }} as _daton_batch_runtime,
             a.{{ daton_batch_id() }} as _daton_batch_id,
@@ -96,6 +106,7 @@
             '{{env_var("DBT_CLOUD_RUN_ID", "manual")}}' as _run_id
         from
             {{ i }} a
+
             {{ unnesting("itemstatus") }}
             {{ unnesting("sellingParty") }}
             {{ unnesting("shipToParty") }}
@@ -118,16 +129,16 @@
             {{ multi_unnesting("itemstatus_acknowledgementstatus", "rejectedquantity") }} as itemstatus_acknowledgementstatus_rejectedquantity
             {{ multi_unnesting("itemstatus", "receivingStatus") }} as itemstatus_receivingStatus
             {{ multi_unnesting("itemstatus_receivingStatus", "receivedQuantity") }} as itemstatus_receivingStatus_receivedQuantity
-        
-
-
-            {% if var('currency_conversion_flag') %}
-            left join {{ref('ExchangeRates')}} b on date(purchaseorderdate) = b.date and itemStatus_netCost.currencyCode = b.to_currency_code
+    ) c
+        {% if var('currency_conversion_flag') %}
+                    left join {{ref('ExchangeRates')}} b on date(requeststartdate) = b.date and itemStatus_netCost_currencyCode = b.to_currency_code
+                
             {% endif %}
+
             {% if is_incremental() %}
             {# /* -- this filter will only be applied on an incremental run */ #}
-            WHERE a.{{daton_batch_runtime()}}  >= (select coalesce(max(_daton_batch_runtime) - {{ var('RetailProcurementOrdersStatus_lookback') }},0) from {{ this }})
+            WHERE c._daton_batch_runtime  >= (select coalesce(max(_daton_batch_runtime) - {{ var('RetailProcurementOrdersStatus_lookback') }},0) from {{ this }})
             {% endif %}
-        qualify dense_rank() over (partition by purchaseordernumber, purchaseorderdate, purchaseOrderStatus,itemStatus_buyerProductIdentifier order by a.{{daton_batch_runtime()}} desc) = 1
+        qualify dense_rank() over (partition by purchaseordernumber, purchaseorderdate, purchaseOrderStatus,itemStatus_buyerProductIdentifier order by c. _daton_batch_runtime  desc) = 1
         {% if not loop.last %} union all {% endif %}
 {% endfor %}       

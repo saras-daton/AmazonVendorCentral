@@ -73,12 +73,11 @@ To enable timezone conversion, which converts the timezone columns from UTC time
 Example:
 ```yaml
 vars:
-timezone_conversion_flag: False
-raw_table_timezone_offset_hours: {
-    "Amazon.VendorCentral.Brand_UK_AmazonVendorCentral_RetailProcurementOrdersStatus":-7
-    }
+ timezone_conversion_flag: True
+to_timezone: 'America/Los_Angeles'
+   
 ```
-Here, -7 represents the offset hours between UTC and PDT considering we are sitting in PDT timezone and want the data in this timezone
+Here, 'America/Los_Angeles' represents the Time Zone identifier. The model will calculate the offset hours between UTC and PDT considering we are sitting in PDT timezone and want the data in this timezone. For more information on Time Zone identifiers please refer to "https://en.wikipedia.org/wiki/List_of_tz_database_time_zones"
 
 ### Table Exclusions
 
@@ -116,7 +115,7 @@ models:
     config: 
       materialized: 'incremental'
       incremental_strategy: 'merge'
-      partition_by: {'field': 'startDate', 'data_type': 'date'}
+      partition_by: {'field': 'startDate', 'data_type': 'timestamp'}
       cluster_by: ['startDate' , 'asin']
       unique_key: ['startDate' , 'asin']
 
@@ -127,14 +126,14 @@ models:
         incremental_strategy: 'merge'
         partition_by: {'field': 'purchaseOrderDate', 'data_type': 'timestamp', 'granularity': 'day'}
         cluster_by: ['purchaseOrderNumber']
-        unique_key: ['purchaseOrderDate','purchaseOrderNumber','purchaseOrderStatus','buyerProductIdentifier']
+        unique_key: ['purchaseOrderDate','purchaseOrderNumber','purchaseOrderStatus','itemStatus_buyerProductIdentifier']
 
   - name: VendorInventoryReportByManufacturing
     description: VendorInventoryReportByManufacturing
     config:
         materialized: 'incremental'
         incremental_strategy: 'merge'
-        partition_by: {'field': 'startDate', 'data_type': 'date'}
+        partition_by: {'field': 'startDate', 'data_type': 'timestamp'}
         cluster_by: ['startDate', 'asin']
         unique_key: ['marketplaceId','startDate', 'asin']
 
@@ -143,7 +142,7 @@ models:
     config:
         materialized: 'incremental'
         incremental_strategy: 'merge'
-        partition_by: {'field': 'startDate', 'data_type': 'date'}
+        partition_by: {'field': 'startDate', 'data_type': 'timestamp'}
         cluster_by: ['startDate', 'asin']
         unique_key: ['marketplaceId','startDate', 'asin']
 
@@ -152,7 +151,7 @@ models:
     config:
         materialized: 'incremental'
         incremental_strategy: 'merge'
-        partition_by: {'field': 'startDate', 'data_type': 'date'}
+        partition_by: {'field': 'startDate', 'data_type': 'timestamp'}
         cluster_by: ['startDate' , 'asin']
         unique_key: ['marketplaceId','startDate' , 'asin']
 
@@ -161,7 +160,7 @@ models:
     config:
         materialized: 'incremental'
         incremental_strategy: 'merge'
-        partition_by: {'field': 'startDate', 'data_type': 'date'}
+        partition_by: {'field': 'startDate', 'data_type': 'timestamp'}
         cluster_by: ['marketplaceId','startDate' , 'asin']
         unique_key: ['marketplaceId','startDate' , 'asin']
 
@@ -170,9 +169,36 @@ models:
     config: 
         materialized: 'incremental'
         incremental_strategy: 'merge' 
-        partition_by: {'field': 'startDate', 'data_type': 'date'}
+        partition_by: {'field': 'startDate', 'data_type': 'timestamp'}
         cluster_by: ['startDate' , 'asin'] 
         unique_key: ['startDate' , 'asin']
+
+  - name: VendorRealTimeSalesReport
+    description: RealTimeSales
+    config: 
+        materialized: 'incremental'
+        incremental_strategy: 'merge' 
+        partition_by: {'field': 'endTime' , 'data_type': 'timestamp', 'granularity': 'day'}
+        cluster_by: ['ReportstartDate' , 'asin'] 
+        unique_key: ['startTime','endTime', 'asin']        
+
+  - name: VendorRealTimeTrafficReport
+    description: RealTimeTraffic
+    config: 
+        materialized: 'incremental'
+        incremental_strategy: 'merge' 
+        partition_by: {'field': 'endTime', 'data_type': 'timestamp','granularity': 'day'}
+        cluster_by: ['ReportstartDate' , 'asin'] 
+        unique_key: ['startTime','endTime' , 'asin']  
+
+  - name: VendorRealTimeInventoryReport
+    description: RealTimeTraffic
+    config: 
+        materialized: 'incremental'
+        incremental_strategy: 'merge' 
+        partition_by: {'field': 'endTime', 'data_type': 'timestamp','granularity': 'day'}
+        cluster_by: ['ReportstartDate' , 'asin'] 
+        unique_key: ['startTime','endTime' , 'asin']                   
 ```
 
 

@@ -15,8 +15,8 @@
 {% for i in result %}
 
     select
-        "{{ extract_brand_and_store_name_from_table(i, var('brandname_position_in_tablename'), var('get_brandname_from_tablename_flag'), var('default_brandname')) }}" as brand,
-        "{{ extract_brand_and_store_name_from_table(i, var('storename_position_in_tablename'), var('get_storename_from_tablename_flag'), var('default_storename')) }}" as store,
+        '{{ extract_brand_and_store_name_from_table(i, var('brandname_position_in_tablename'), var('get_brandname_from_tablename_flag'), var('default_brandname')) }}' as brand,
+        '{{ extract_brand_and_store_name_from_table(i, var('storename_position_in_tablename'), var('get_storename_from_tablename_flag'), var('default_storename')) }}' as store,
         cast(reportrequesttime as timestamp) as reportrequesttime,
         vendorid,
         marketplacename,
@@ -32,7 +32,6 @@
         '{{env_var("DBT_CLOUD_RUN_ID", "manual")}}' as _run_id
         from {{ i }} a
         {% if is_incremental() %}
-        {# /* -- this filter will only be applied on an incremental run */ #}
         {# /* -- this filter will only be applied on an incremental run */ #}
         WHERE a.{{daton_batch_runtime()}}  >= (select coalesce(max(_daton_batch_runtime) - {{ var('NetPureProductMarginReport_lookback') }},0) from {{ this }})
         {% endif %}

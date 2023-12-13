@@ -8,9 +8,9 @@ config-version: 2
 require-dbt-version: [">=1.0.0", "<2.0.0"]
 
 vars:
-  raw_database: "edm-saras" #Amazon equivalent to project_id in BigQuery
+  raw_database: "EDM" #"edm-saras"  # Amazon equivalent to project_id in BigQuery
     # Example Database name
-  raw_schema: "EDM_Daton" #"VendorCentral" equivalent to dataset in BigQuery
+  raw_schema: "EDM" #"EDM_Daton" # "VendorCentral" equivalent to dataset in BigQuery
     # Example Schema name
 
   get_brandname_from_tablename_flag: True
@@ -27,6 +27,7 @@ vars:
 
   currency_conversion_flag: True
   timezone_conversion_flag: True
+
   to_timezone: 'America/Los_Angeles'
       # Above are Example entries for raw table level input offset hours
 
