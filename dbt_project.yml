@@ -1,0 +1,107 @@
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'AmazonVendorCentral'
+version: '1.0.0'
+config-version: 2
+require-dbt-version: [">=1.0.0", "<2.0.0"]
+
+vars:
+  raw_database: "edm-saras" #Amazon equivalent to project_id in BigQuery
+    # Example Database name
+  raw_schema: "EDM_Daton" #"VendorCentral" equivalent to dataset in BigQuery
+    # Example Schema name
+
+  get_brandname_from_tablename_flag: True
+  brandname_position_in_tablename: 0
+    # Example- Daton Integration Name: Nike_US_SponsoredBrands --> Position 0, separated by '_'
+  default_brandname: "" 
+    # Example- default_brandname: "Nike" --> for Single Brand users, with no Brandname in Daton Integration Name
+
+  get_storename_from_tablename_flag: True 
+  storename_position_in_tablename: 1
+    # Example- Daton Integration Name: Nike_US_SponsoredBrands --> Position 1, separated by '_'
+  default_storename: "" 
+    # Example- default_storename: "US" --> for Single Store users, with no Storename in Daton Integration Name
+
+  currency_conversion_flag: True
+  timezone_conversion_flag: True
+  to_timezone: 'America/Los_Angeles'
+      # Above are Example entries for raw table level input offset hours
+
+  NetPureProductMarginReport: True
+  RetailProcurementOrdersStatus: True
+  VendorInventoryReportByManufacturing: True
+  VendorInventoryReportBySourcing: True
+  VendorSalesReportByManufacturing: True
+  VendorSalesReportBySourcing: True
+  VendorTrafficReport: True
+  VendorRealTimeSalesReport: True
+  VendorRealTimeTrafficReport: True
+  VendorRealTimeInventoryReport: True
+
+
+  NetPureProductMarginReport_tbl_ptrn: '%netpureproductmarginreport%'
+  NetPureProductMarginReport_exclude_tbl_ptrn: ''
+  NetPureProductMarginReport_lookback: 172800000
+
+  RetailProcurementOrdersStatus_tbl_ptrn: '%retailprocurementordersstatus%'
+  RetailProcurementOrdersStatus_exclude_tbl_ptrn: ''
+  RetailProcurementOrdersStatus_lookback: 172800000
+
+  VendorInventoryReportByManufacturing_tbl_ptrn: '%vendorinventoryreportbymanufacturing%'
+  VendorInventoryReportByManufacturing_exclude_tbl_ptrn: ''
+  VendorInventoryReportByManufacturing_lookback: 172800000
+
+  VendorInventoryReportBySourcing_tbl_ptrn: '%vendorinventoryreportbysourcing%'
+  VendorInventoryReportBySourcing_exclude_tbl_ptrn: ''
+  VendorInventoryReportBySourcing_lookback: 172800000
+
+  VendorSalesReportByManufacturing_tbl_ptrn: '%vendorsalesreportbymanufacturing%'
+  VendorSalesReportByManufacturing_exclude_tbl_ptrn: ''
+  VendorSalesReportByManufacturing_lookback: 172800000
+
+  VendorSalesReportBySourcing_tbl_ptrn: '%vendorsalesreportbysourcing%'
+  VendorSalesReportBySourcing_exclude_tbl_ptrn: ''
+  VendorSalesReportBySourcing_lookback: 172800000
+
+  VendorTrafficReport_tbl_ptrn: '%vendortrafficreport%'
+  VendorTrafficReport_exclude_tbl_ptrn: ''
+  VendorTrafficReport_lookback: 172800000
+
+  VendorRealTimeSalesReport_tbl_ptrn: '%vendorrealtimesalesreport%'
+  VendorRealTimeSalesReport_exclude_tbl_ptrn: ''
+  VendorRealTimeSalesReport_lookback: 172800000
+
+  VendorRealTimeTrafficReport_tbl_ptrn: '%vendorrealtimetrafficreport%'
+  VendorRealTimeTrafficReport_exclude_tbl_ptrn: ''
+  VendorRealTimeTrafficReport_lookback: 172800000
+
+  VendorRealTimeInventoryReport_tbl_ptrn: '%vendorrealtimeinventoryreport%'
+  VendorRealTimeInventoryReport_exclude_tbl_ptrn: ''
+  VendorRealTimeInventoryReport_lookback: 172800000
+
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"  # directory which will store compiled SQL files
+clean-targets:         # directories to be removed by `dbt clean`
+  - "target"
+  - "dbt_packages"
+
+
+models:
+  AmazonVendorCentral:
+    AmazonVendorCentral:
+      +schema: stg_amazon
+
+profile: edm_data_transformation
